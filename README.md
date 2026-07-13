@@ -66,15 +66,15 @@ Teams constantly need to "clone this record **and** its children" — a parent r
 
 ```mermaid
 flowchart LR
-    A[User / Flow triggers clone] --> B[RecordCloneController / RecordCloneInvocable]
-    B --> C[RecordCloneService]
-    C --> D{Clone_Config__mdt<br/>for this object?}
-    D -- No --> E[Clone parent only<br/>all createable fields]
-    D -- Yes --> F[Copy createable, non-excluded fields<br/>apply name prefix]
-    F --> G[Insert parent clones]
-    G --> H[Query & clone configured children<br/>re-parent to new records]
-    H --> I[Insert child clones]
-    E --> J[Return new record Id]
+    A["User / Flow triggers clone"] --> B["RecordCloneController / RecordCloneInvocable"]
+    B --> C["RecordCloneService"]
+    C --> D{"Clone_Config__mdt for this object?"}
+    D -- No --> E["Clone parent only (all createable fields)"]
+    D -- Yes --> F["Copy createable, non-excluded fields; apply name prefix"]
+    F --> G["Insert parent clones"]
+    G --> H["Query and clone configured children; re-parent to new records"]
+    H --> I["Insert child clones"]
+    E --> J["Return new record Id"]
     I --> J
 ```
 
