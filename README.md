@@ -82,15 +82,15 @@ flowchart LR
 
 ## Screenshots
 
+**Deep Clone in action** — open a record, review what will be cloned, click **Clone**, and land on the freshly created copy:
+
+![Deep Clone demo](docs/screenshots/deep-clone-demo.gif)
+
 Enabling deep clone for an object is pure configuration — no code, no deploy. Find **Clone Config** under Custom Metadata Types, open **Manage Records**, and add a record:
 
 | 1. Setup → Custom Metadata Types → Manage Records                         | 2. New Clone Config record                                                |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | ![Manage Clone Config records](docs/screenshots/setup-manage-records.png) | ![Create a new Clone Config](docs/screenshots/setup-new-clone-config.png) |
-
-> **Demo GIF (recommended):** record a short clip of the LWC on a record page — confirmation panel → **Clone** → auto-navigate to the new record — save it as `docs/screenshots/deep-clone-demo.gif`, and it will render here:
->
-> `![Deep Clone demo](docs/screenshots/deep-clone-demo.gif)`
 
 ---
 
