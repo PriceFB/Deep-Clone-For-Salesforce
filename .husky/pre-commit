@@ -1,1 +1,18 @@
+# GUI Git clients (e.g. GitHub Desktop on Windows) run hooks in a minimal
+# bundled shell where Node/npm can't reliably execute, which aborts the commit
+# with exit code 127. Skip the checks in that environment so commits aren't
+# blocked. The same checks still run when you commit from a terminal, and they
+# always run in GitHub Actions CI, so nothing slips through.
+
+# 1) Skip when invoked by GitHub Desktop's bundled Git.
+case "$PATH" in
+  *GitHubDesktop*) exit 0 ;;
+esac
+
+# 2) Skip if npm can't actually be executed in this shell (not just found).
+if ! npm --version >/dev/null 2>&1; then
+  echo "husky: npm is not runnable in this shell - skipping pre-commit checks."
+  exit 0
+fi
+
 npm run precommit
