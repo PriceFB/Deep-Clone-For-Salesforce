@@ -1,8 +1,9 @@
 # Deep Clone for Salesforce
 
-[![CI](https://github.com/PriceFB/Record-Super-Clone/actions/workflows/ci.yml/badge.svg)](https://github.com/PriceFB/Record-Super-Clone/actions/workflows/ci.yml)
+[![CI](https://github.com/PriceFB/Deep-Clone-For-Salesforce/actions/workflows/ci.yml/badge.svg)](https://github.com/PriceFB/Deep-Clone-For-Salesforce/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Salesforce API](https://img.shields.io/badge/Salesforce%20API-v67.0-00A1E0.svg)](https://developer.salesforce.com)
+[![LWC unit tests](https://img.shields.io/badge/LWC%20coverage-100%25-brightgreen.svg)](#continuous-integration)
 [![Code style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
@@ -81,11 +82,15 @@ flowchart LR
 
 ## Screenshots
 
-> _Placeholder — add images to `docs/screenshots/` and update these links._
+Enabling deep clone for an object is pure configuration — no code, no deploy. Find **Clone Config** under Custom Metadata Types, open **Manage Records**, and add a record:
 
-| Confirmation panel                                                  | Cloned record                                        |
-| ------------------------------------------------------------------- | ---------------------------------------------------- |
-| ![Deep Clone confirmation panel](docs/screenshots/confirmation.png) | ![Cloned record](docs/screenshots/cloned-record.png) |
+| 1. Setup → Custom Metadata Types → Manage Records                         | 2. New Clone Config record                                                |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| ![Manage Clone Config records](docs/screenshots/setup-manage-records.png) | ![Create a new Clone Config](docs/screenshots/setup-new-clone-config.png) |
+
+> **Demo GIF (recommended):** record a short clip of the LWC on a record page — confirmation panel → **Clone** → auto-navigate to the new record — save it as `docs/screenshots/deep-clone-demo.gif`, and it will render here:
+>
+> `![Deep Clone demo](docs/screenshots/deep-clone-demo.gif)`
 
 ---
 
@@ -94,8 +99,8 @@ flowchart LR
 ### Option A — Deploy the source with the Salesforce CLI
 
 ```bash
-git clone https://github.com/PriceFB/Record-Super-Clone.git
-cd Record-Super-Clone
+git clone https://github.com/PriceFB/Deep-Clone-For-Salesforce.git
+cd Deep-Clone-For-Salesforce
 
 # Authorize your org (skip if already authorized)
 sf org login web --alias my-org
@@ -107,13 +112,22 @@ sf project deploy start --target-org my-org
 sf apex run test --test-level RunLocalTests --code-coverage --result-format human --target-org my-org
 ```
 
-### Option B — Unlocked package
+### Option B — Unlocked package (one-click install)
 
-> _Placeholder — publish an unlocked package and drop the install URL/version here._
+Install the packaged version directly — no clone, no source deploy:
 
 ```bash
-sf package install --package 04t0000000000000 --target-org my-org --wait 10
+# Replace 04t... with the version Id from the latest GitHub release
+sf package install --package 04tXXXXXXXXXXXXXXX --target-org my-org --wait 10
 ```
+
+> The current package version Id is published on the [latest release](https://github.com/PriceFB/Deep-Clone-For-Salesforce/releases/latest). To (re)build it from a Dev Hub:
+>
+> ```bash
+> sf package create --name "Deep Clone for Salesforce" --package-type Unlocked --path force-app --target-dev-hub my-devhub
+> sf package version create --package "Deep Clone for Salesforce" --installation-key-bypass --wait 20 --code-coverage --target-dev-hub my-devhub
+> sf package version promote --package "Deep Clone for Salesforce@1.0.0-1" --target-dev-hub my-devhub
+> ```
 
 ---
 
@@ -233,6 +247,15 @@ sf apex run test --test-level RunLocalTests --code-coverage --result-format huma
 ```
 
 The Apex test suite covers single and bulk (200+) clones, child cloning, excluded-field and name-prefix behavior, the no-config fallback, and FLS handling via `System.runAs`. The service is designed for testability: tests inject configuration in memory (`RecordCloneService.configOverride`) so they never depend on deployed metadata or org data.
+
+### Test coverage
+
+| Layer             | Tool                   | Coverage                                                                    |
+| ----------------- | ---------------------- | --------------------------------------------------------------------------- |
+| LWC (`deepClone`) | Jest (`sfdx-lwc-jest`) | **100%** statements / functions / lines (12 tests)                          |
+| Apex              | `RunLocalTests`        | Enforced on deploy (Salesforce requires ≥ 75% org-wide); suite targets 90%+ |
+
+LWC coverage is measured on every CI run with `npm run test:unit:coverage`. Apex coverage is enforced by the optional scratch-org CI job, which deploys the source and runs `sf apex run test --test-level RunLocalTests --code-coverage` (see [Continuous integration](#continuous-integration)).
 
 ---
 

@@ -24,7 +24,7 @@ export default class DeepClone extends NavigationMixin(LightningElement) {
   }
 
   get isReady() {
-    return this.config !== undefined;
+    return this.config !== undefined || this.wireError !== undefined;
   }
 
   get deepCloneEnabled() {
