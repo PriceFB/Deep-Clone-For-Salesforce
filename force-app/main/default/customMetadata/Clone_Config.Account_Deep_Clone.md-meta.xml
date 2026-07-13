@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomMetadata
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
+    <label>Account Deep Clone</label>
+    <protected>false</protected>
+    <values>
+        <field>Object_API_Name__c</field>
+        <value xsi:type="xsd:string">Account</value>
+    </values>
+    <values>
+        <field>Child_Relationship_Names__c</field>
+        <value xsi:type="xsd:string">Contacts</value>
+    </values>
+    <values>
+        <field>Excluded_Fields__c</field>
+        <value xsi:type="xsd:string">AccountNumber,Sic</value>
+    </values>
+    <values>
+        <field>Child_Excluded_Fields__c</field>
+        <value xsi:type="xsd:string">{"Contacts":["Email"]}</value>
+    </values>
+    <values>
+        <field>Name_Prefix__c</field>
+        <value xsi:type="xsd:string">Copy of </value>
+    </values>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+</CustomMetadata>

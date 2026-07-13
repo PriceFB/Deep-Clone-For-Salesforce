@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Name_Prefix__c</fullName>
+    <label>Name Prefix</label>
+    <type>Text</type>
+    <length>80</length>
+    <required>false</required>
+    <unique>false</unique>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <description
+  >Optional text prepended to the parent record's Name field on the clone (for example, "Copy of ").</description>
+    <inlineHelpText
+  >Optional prefix added to the cloned record's name, e.g. "Copy of ".</inlineHelpText>
+</CustomField>

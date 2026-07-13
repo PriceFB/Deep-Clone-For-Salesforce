@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Child_Excluded_Fields__c</fullName>
+    <label>Child Excluded Fields</label>
+    <type>LongTextArea</type>
+    <length>32768</length>
+    <visibleLines>5</visibleLines>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <description
+  >Optional JSON map of child relationship name to a list of field API names to exclude, for example: {"Contacts":["Email","Phone"]}.</description>
+    <inlineHelpText
+  >Optional JSON: {"Contacts":["Email"]} to exclude fields per child relationship.</inlineHelpText>
+</CustomField>

@@ -1,0 +1,80 @@
+<template>
+  <lightning-card title="Deep Clone" icon-name="utility:copy">
+    <div class="slds-var-p-horizontal_medium slds-var-p-bottom_medium">
+      <template lwc:if={isReady}>
+        <template lwc:if={wireError}>
+          <div class="slds-text-color_error" role="alert">{wireError}</div>
+        </template>
+        <template lwc:else>
+          <p class="slds-text-body_regular slds-var-m-bottom_small">
+            {summary}
+          </p>
+
+          <template lwc:if={hasChildRelationships}>
+            <dl
+              class="slds-list_horizontal slds-wrap slds-var-m-bottom_x-small"
+            >
+              <dt class="slds-item_label slds-text-color_weak slds-truncate">
+                Related records:
+              </dt>
+              <dd class="slds-item_detail slds-truncate">
+                {childRelationshipList}
+              </dd>
+            </dl>
+          </template>
+
+          <template lwc:if={hasExcludedFields}>
+            <dl
+              class="slds-list_horizontal slds-wrap slds-var-m-bottom_x-small"
+            >
+              <dt class="slds-item_label slds-text-color_weak slds-truncate">
+                Excluded fields:
+              </dt>
+              <dd class="slds-item_detail slds-truncate">
+                {excludedFieldList}
+              </dd>
+            </dl>
+          </template>
+
+          <template lwc:if={hasNamePrefix}>
+            <dl
+              class="slds-list_horizontal slds-wrap slds-var-m-bottom_x-small"
+            >
+              <dt class="slds-item_label slds-text-color_weak slds-truncate">
+                Name prefix:
+              </dt>
+              <dd class="slds-item_detail slds-truncate">
+                {config.namePrefix}
+              </dd>
+            </dl>
+          </template>
+
+          <div class="slds-var-m-top_medium">
+            <lightning-button
+              variant="brand"
+              label="Clone"
+              title="Clone this record and its related records"
+              icon-name="utility:copy"
+              onclick={handleClone}
+              disabled={isCloning}
+            ></lightning-button>
+          </div>
+        </template>
+      </template>
+
+      <template lwc:else>
+        <lightning-spinner
+          alternative-text="Loading configuration"
+          size="small"
+        ></lightning-spinner>
+      </template>
+
+      <template lwc:if={isCloning}>
+        <lightning-spinner
+          alternative-text="Cloning record"
+          size="medium"
+        ></lightning-spinner>
+      </template>
+    </div>
+  </lightning-card>
+</template>
