@@ -82,7 +82,7 @@ flowchart LR
 
 ## Screenshots
 
-**Deep Clone in action** — open a record, review what will be cloned, click **Clone**, and land on the freshly created copy:
+**Deep Clone in action** — the panel summarizes what will be cloned (the record and its configured related records). Click **Clone** to copy it; a success toast confirms, and you're taken straight to the new record:
 
 ![Deep Clone demo](docs/screenshots/deep-clone-demo.gif)
 
